@@ -28,7 +28,7 @@ export default function OrderContents({ order, removeItem }: OrderContentsProps)
                             className=" "
                             onClick={() => removeItem(item.id)}
                         >
-                            <img className="w-8 img-fluid" src={`src/img/borrar.png`} alt="icono" /> 
+                            <img className="w-8 img-fluid" src={`./img/borrar.png`} alt="icono" /> 
                         </button>
                     </div>
                 ))}
