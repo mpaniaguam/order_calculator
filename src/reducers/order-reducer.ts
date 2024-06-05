@@ -27,7 +27,7 @@ export const orderReducer = (
         let order: OrderItem[] = []
         if (itemExist) {  
             order = state.order.map( orderItem => orderItem.id === action.payload.item.id ? 
-                { ...orderItem, quantity: orderItem. quantity + 1 } : 
+                { ...orderItem, quantity: orderItem.quantity + 1 } : 
                 orderItem
             )     
         } else {
