@@ -1,13 +1,13 @@
+import { useReducer } from "react"
 import MenuItem from "./components/MenuItem"
 import OrderContents from "./components/OrderContents"
 import OrderTotals from "./components/OrderTotals"
 import TipPercentageForm from "./components/TipPercentageForm"
-import { menuItems } from "./data/db"
-import useOrder from "./hooks/useOrder"
+import { menuItems } from "./data/db" 
+import { orderReducer, initialState } from "./reducers/order-reducer"
 
-function App() {
-
-  const { order, tip, setTip, addItem, removeItem, placeOrder } = useOrder()
+function App() { 
+  const [state, dispatch] = useReducer(orderReducer, initialState)
 
   return (
     <>
@@ -16,7 +16,7 @@ function App() {
       </header>
 
       <main className="bg-blue-50">
-        <div className="  max-w-7xl mx-auto py-5 grid md:grid-cols-2 ">
+        <div className=" max-w-7xl mx-auto py-5 grid md:grid-cols-2 ">
           <div className="p-5">
             <h2 className="text-3xl font-semibold text-blue-950">Menu</h2>
             <div className="space-y-3 mt-10">
@@ -24,33 +24,31 @@ function App() {
                 <MenuItem
                   key={item.id}
                   item={item}
-                  addItem={addItem}
+                  dispatch={dispatch}
                 />
               ))}
-            </div>
-
-
+            </div> 
           </div>
           <div className="p-5 space-y-10">
             <h2 className='font-semibold text-3xl text-blue-950 '> Orden</h2>
-            {order.length ? (
+            {state.order.length ? (
               <>
 
                 <OrderContents
-                  order={order}
-                  removeItem={removeItem}
+                  order={state.order}
+                  dispatch={dispatch} 
                 />
 
                 <h3 className="font-semibold text-blue-950 text-2xl">Totales y Propinas:</h3>
                 <TipPercentageForm
-                  setTip={setTip}
-                  tip={tip}
+                  dispatch={dispatch}
+                  tip={state.tip}
                 />
 
                 <OrderTotals
-                  order={order}
-                  tip={tip}
-                  placeOrder={placeOrder}
+                  order={state.order}
+                  tip={state.tip}
+                  dispatch={dispatch} 
                 />
               </>
             ) : (

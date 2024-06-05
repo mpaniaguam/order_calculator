@@ -1,12 +1,14 @@
+import { Dispatch } from "react"
 import { formatCurrency } from "../helpers"
-import { MenuItem, OrderItem } from "../types"
+import { OrderItem } from "../types"
+import { OrderActions } from "../reducers/order-reducer"
 
 type OrderContentsProps = {
     order: OrderItem[],
-    removeItem: (id: MenuItem['id']) => void
+    dispatch: Dispatch<OrderActions> 
 }
 
-export default function OrderContents({ order, removeItem }: OrderContentsProps) {
+export default function OrderContents({ order, dispatch }: OrderContentsProps) {
     return (
         <div>
             <div className="space-y-3 mt-10">
@@ -26,8 +28,7 @@ export default function OrderContents({ order, removeItem }: OrderContentsProps)
 
                         <button
                             className=" "
-                            onClick={() => removeItem(item.id)}
-                        >
+                            onClick={() => dispatch({type:'remove-item', payload:{id: item.id}})}                        >
                             <img className="w-8 img-fluid" src={`./img/borrar.png`} alt="icono" /> 
                         </button>
                     </div>
